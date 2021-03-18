@@ -1,0 +1,6 @@
+main
+{
+int res;
+res = 5 - 10;
+s_out res;
+}

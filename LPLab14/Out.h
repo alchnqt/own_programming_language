@@ -10,7 +10,7 @@
 
 namespace Out
 {
-	static const std::string SEPARATE_SYMBOLS = ";,}{()=+-/*";
+	static const std::string SEPARATE_SYMBOLS = ";,}{()=+-/*\n ";
 	struct OUT
 	{
 		std::string text;

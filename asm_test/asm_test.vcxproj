@@ -21,10 +21,9 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{4d14a978-8e7c-4b37-813e-044c4e2fd31b}</ProjectGuid>
-    <RootNamespace>LPLab14</RootNamespace>
+    <ProjectGuid>{ddb4130c-b737-464c-a72d-24ffb7d5fcf4}</ProjectGuid>
+    <RootNamespace>asmtest</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>MAV_2020</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -55,6 +54,7 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.props" />
   </ImportGroup>
   <ImportGroup Label="Shared">
   </ImportGroup>
@@ -93,6 +93,10 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreSpecificDefaultLibraries>/NODEFAULTLIB:Library</IgnoreSpecificDefaultLibraries>
+      <IgnoreAllDefaultLibraries>
+      </IgnoreAllDefaultLibraries>
+      <AdditionalDependencies />
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -140,41 +144,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="AsmTranslation.h" />
-    <ClInclude Include="Error.h" />
-    <ClInclude Include="FST.h" />
-    <ClInclude Include="Greibach.h" />
-    <ClInclude Include="In.h" />
-    <ClInclude Include="IT.h" />
-    <ClInclude Include="LexicalAnalyze.h" />
-    <ClInclude Include="Log.h" />
-    <ClInclude Include="LT.h" />
-    <ClInclude Include="main.h" />
-    <ClInclude Include="MFST.h" />
-    <ClInclude Include="Out.h" />
-    <ClInclude Include="Parm.h" />
-    <ClInclude Include="PolishNotation.h" />
-    <ClInclude Include="Rule.h" />
-    <ClInclude Include="SemanticAnalyze.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="AsmTranslation.cpp" />
-    <ClCompile Include="Error.cpp" />
-    <ClCompile Include="FST.cpp" />
-    <ClCompile Include="Greibach.cpp" />
-    <ClCompile Include="In.cpp" />
-    <ClCompile Include="IT.cpp" />
-    <ClCompile Include="LexicalAnalyze.cpp" />
-    <ClCompile Include="Log.cpp" />
-    <ClCompile Include="LT.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="MFST.cpp" />
-    <ClCompile Include="Out.cpp" />
-    <ClCompile Include="Parm.cpp" />
-    <ClCompile Include="PolishNotation.cpp" />
-    <ClCompile Include="SemanticAnalyze.cpp" />
+    <MASM Include="..\LPLab14\in.txt.asm" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="$(VCTargetsPath)\BuildCustomizations\masm.targets" />
   </ImportGroup>
 </Project>

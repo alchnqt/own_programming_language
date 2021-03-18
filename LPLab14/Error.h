@@ -2,7 +2,7 @@
 
 #ifndef ERROR_H_
 #define ERROR_H_
-
+#include <string>
 #define ERROR_THROW(id) Error::geterror(id);
 
 #define ERROR_THROW_IN(id, l, c) Error::geterrorin(id, l, c);
@@ -36,6 +36,23 @@ namespace Error
 
 	ERROR geterror(int id);
 	ERROR geterrorin(int id, int line, int col);
+
+	class exception
+	{
+	private:
+		int id;
+		int line = 0;
+		std::string message;
+	public:
+		int get_id();
+		int get_line();
+		const char* get_message();
+		exception() {}
+		exception(const char* message, int id);
+		exception(const char* message, int id, int line);
+		~exception();
+
+	};
 }
 
 #endif // ERROR_H_

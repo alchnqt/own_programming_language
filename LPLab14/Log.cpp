@@ -52,25 +52,6 @@ namespace Log
 		strftime(buff, sizeof(buff), "\n----------- ПРОТОКОЛ ---------\n---- %d.%m.%y. %T ----\n", timeInfo);
 		*log.stream << buff;
 	}
-	void WriteOut(LOG& log, Out::OUT out)
-	{
-		//Вариант без списка
-		/*if (out.bad_lines.empty())
-		{
-			log.stream << "\n------Объектный модуль-------\n\n"
-			<< "\n\nНепрочитанных строк: " << out.incorrect_lines;
-			for (auto& n : out.bad_lines)
-			{
-				log.stream << "\nЦепочка: " << n.first << " не распознана; позиция: " << n.second.position << " символ: " << n.second.symbol << std::endl;
-			}
-		}
-		else
-		{
-			log.stream << "\n------Объектный модуль-------\n\n"
-				<< "\n\nНепрочитанных строк: " << out.incorrect_lines
-			    << "\n\nВсе строки были прочитаны!";
-		}*/
-	}
 	void WriteOut(LOG& log)
 	{
 		*log.stream << "\n------Объектный модуль не cформирован-------\n\n";
@@ -81,7 +62,7 @@ namespace Log
 		char _out[PARM_MAX_SIZE];
 		char _log[PARM_MAX_SIZE];
 		wcstombs(_in, parm.in, PARM_MAX_SIZE);
-		wcstombs(_out, parm.out, PARM_MAX_SIZE);
+		wcstombs(_out, parm.asm_file, PARM_MAX_SIZE);
 		wcstombs(_log, parm.log, PARM_MAX_SIZE);
 		*log.stream
 			<< "\n--------ПАРАМЕТРЫ -----------" << endl 
@@ -111,6 +92,19 @@ namespace Log
 		<< " позиция " << error.inext.col << endl;
 
 		
+	}
+	void WriteError(LOG& log, Error::exception& error)
+	{
+		*log.stream << "\nОшибка: " << error.get_id()
+			<< ": " << error.get_message() << std::endl;
+		if (error.get_line() != 0)
+			*log.stream << "Строка: " << error.get_line();
+		Close(log);
+
+		std::cout << "\nОшибка: " << error.get_id()
+			<< ": " << error.get_message() << std::endl;
+		if (error.get_line() != 0)
+			std::cout << "Строка: " << error.get_line();
 	}
 	
 	void Close(LOG& log)

@@ -94,7 +94,11 @@ FST::NODE()
 #define FST_PLUS SNODE('+')
 #define FST_MINUS SNODE('-')
 #define FST_STAR SNODE('*')
+#define FST_EQUAL SNODE('=')
 #define FST_DIRSLACH SNODE('/')
+#define FST_OPERATOR 2,	\
+	FST::NODE(4, FST::RELATION('+', 1), FST::RELATION('-', 1), FST::RELATION('*', 1), FST::RELATION('/', 1)),\
+	FST::NODE()
 
 #define INTEGER_NODE(X) FST::RELATION('0', X), FST::RELATION('1', X), FST::RELATION('2', X), FST::RELATION('3', X), FST::RELATION('4', X), \
 FST::RELATION('5', X), FST::RELATION('6', X), FST::RELATION('7', X), FST::RELATION('8', X), FST::RELATION('9', X)
@@ -102,118 +106,57 @@ FST::RELATION('5', X), FST::RELATION('6', X), FST::RELATION('7', X), FST::RELATI
 #define MINUS_NODE(X) FST::RELATION('-', X), FST::RELATION('0', X), FST::RELATION('1', X), FST::RELATION('2', X), FST::RELATION('3', X), FST::RELATION('4', X), \
 FST::RELATION('5', X), FST::RELATION('6', X), FST::RELATION('7', X), FST::RELATION('8', X), FST::RELATION('9', X)
 
-#define FST_INTEGER_LITERAL 1,	\
-	FST::NODE(10,	FST::RELATION('0', 0),	\
-					FST::RELATION('1', 0),	\
-					FST::RELATION('2', 0),	\
-					FST::RELATION('3', 0),	\
-					FST::RELATION('4', 0),	\
-					FST::RELATION('5', 0),	\
-					FST::RELATION('6', 0),	\
-					FST::RELATION('7', 0),	\
-					FST::RELATION('8', 0),	\
-					FST::RELATION('9', 0)),	\
+#define FST_INTEGER_LITERAL 2,	\
+	FST::NODE(21,	\
+	FST::RELATION('-', 0), FST::RELATION('1', 0), FST::RELATION('2', 0), FST::RELATION('3', 0), FST::RELATION('4', 0), FST::RELATION('5', 0), FST::RELATION('6', 0),\
+	FST::RELATION('7', 0), FST::RELATION('8', 0), FST::RELATION('9', 0), FST::RELATION('0', 0),\
+	\
+	FST::RELATION('1', 1), FST::RELATION('2', 1), FST::RELATION('3', 1), FST::RELATION('4', 1), FST::RELATION('5', 1), FST::RELATION('6', 1),\
+	FST::RELATION('7', 1), FST::RELATION('8', 1), FST::RELATION('9', 1), FST::RELATION('0', 1)),\
 	FST::NODE()
 								
 
 #define REL(X, Y) FST::RELATION(X, Y)
 
-#define STRING_NODE(X) INTEGER_NODE(X),\
-REL(' ', X),\
-REL('à', X), REL('á', X), REL('â', X), REL('ã', X), REL('ä', X), REL('å', X), REL('¸', X), REL('æ', X),REL('ç', X), REL('è', X), REL('é', X),\
-REL('ê', X), REL('ê', X), REL('ë', X),REL('ì', X),REL('í', X),REL('î', X), REL('ï', X),REL('ð', X),REL('ñ', X),REL('ò', X), REL('ó', X),\
-REL('ô', X), REL('õ', X), REL('ö', X),REL('÷', X),REL('ø', X),REL('ù', X), REL('ú', X),REL('ü', X),REL('û', X),REL('ý', X), REL('þ', X), REL('ÿ', X)
-
-//33+2+10 => 2: ' ' 45
-#define FST_STRING_LITERAL 3,	\
-	FST::NODE(1, FST::RELATION('\'', 1)),	\
-	FST::NODE(85,	FST::RELATION(' ', 1),	\
-					FST::RELATION('a', 1),	\
-					FST::RELATION('b', 1),	\
-					FST::RELATION('c', 1),	\
-					FST::RELATION('d', 1),	\
-					FST::RELATION('e', 1),	\
-					FST::RELATION('f', 1),	\
-					FST::RELATION('g', 1),	\
-					FST::RELATION('h', 1),	\
-					FST::RELATION('i', 1),	\
-					FST::RELATION('j', 1),	\
-					FST::RELATION('k', 1),	\
-					FST::RELATION('l', 1),	\
-					FST::RELATION('m', 1),	\
-					FST::RELATION('n', 1),	\
-					FST::RELATION('o', 1),	\
-					FST::RELATION('p', 1),	\
-					FST::RELATION('q', 1),	\
-					FST::RELATION('r', 1),	\
-					FST::RELATION('s', 1),	\
-					FST::RELATION('t', 1),	\
-					FST::RELATION('u', 1),	\
-					FST::RELATION('v', 1),	\
-					FST::RELATION('w', 1),	\
-					FST::RELATION('x', 1),	\
-					FST::RELATION('y', 1),	\
-					FST::RELATION('z', 1),	\
-					FST::RELATION('0', 1),	\
-					FST::RELATION('1', 1),	\
-					FST::RELATION('2', 1),	\
-					FST::RELATION('3', 1),	\
-					FST::RELATION('4', 1),	\
-					FST::RELATION('5', 1),	\
-					FST::RELATION('6', 1),	\
-					FST::RELATION('7', 1),	\
-					FST::RELATION('8', 1),	\
-					FST::RELATION('9', 1),	\
-					FST::RELATION('à', 1),	\
-					FST::RELATION('á', 1),	\
-					FST::RELATION('â', 1),	\
-					FST::RELATION('ã', 1),	\
-					FST::RELATION('ä', 1),	\
-					FST::RELATION('å', 1),	\
-					FST::RELATION('¸', 1),	\
-					FST::RELATION('æ', 1),	\
-					FST::RELATION('ç', 1),	\
-					FST::RELATION('è', 1),	\
-					FST::RELATION('é', 1),	\
-					FST::RELATION('ê', 1),	\
-					FST::RELATION('ë', 1),	\
-					FST::RELATION('ì', 1),	\
-					FST::RELATION('í', 1),	\
-					FST::RELATION('î', 1),	\
-					FST::RELATION('ï', 1),	\
-					FST::RELATION('ð', 1),	\
-					FST::RELATION('ñ', 1),	\
-					FST::RELATION('ò', 1),	\
-					FST::RELATION('ó', 1),	\
-					FST::RELATION('ô', 1),	\
-					FST::RELATION('õ', 1),	\
-					FST::RELATION('ö', 1),	\
-					FST::RELATION('÷', 1),	\
-					FST::RELATION('ø', 1),	\
-					FST::RELATION('ù', 1),	\
-					FST::RELATION('ü', 1),	\
-					FST::RELATION('ú', 1),	\
-					FST::RELATION('û', 1),	\
-					FST::RELATION('ý', 1),	\
-					FST::RELATION('þ', 1),	\
-					FST::RELATION('ÿ', 1),	\
-					FST::RELATION('=', 1),	\
-					FST::RELATION('+', 1),	\
-					FST::RELATION('-', 1),	\
-					FST::RELATION('*', 1),	\
-					FST::RELATION('/', 1),	\
-					FST::RELATION('(', 1),	\
-					FST::RELATION(')', 1),	\
-					FST::RELATION('{', 1),	\
-					FST::RELATION('}', 1),	\
-					FST::RELATION(';', 1),	\
-					FST::RELATION(',', 1),	\
-					FST::RELATION('?', 1),	\
-					FST::RELATION('!', 1),	\
-					FST::RELATION('\'', 2)),\
+#define FST_STRING_LITERAL 4,	\
+	FST::NODE(2, FST::RELATION('\'', 1), FST::RELATION('\'', 2)),\
+	FST::NODE(158,	\
+	FST::RELATION('a', 1), FST::RELATION('b', 1), FST::RELATION('c', 1), FST::RELATION('d', 1), FST::RELATION('e', 1), FST::RELATION('f', 1),\
+	FST::RELATION('g', 1), FST::RELATION('h', 1), FST::RELATION('i', 1), FST::RELATION('j', 1), FST::RELATION('k', 1), FST::RELATION('l', 1),\
+	FST::RELATION('m', 1), FST::RELATION('n', 1), FST::RELATION('o', 1), FST::RELATION('p', 1), FST::RELATION('q', 1), FST::RELATION('r', 1),\
+	FST::RELATION('s', 1), FST::RELATION('t', 1), FST::RELATION('u', 1), FST::RELATION('v', 1), FST::RELATION('w', 1), FST::RELATION('x', 1),\
+	FST::RELATION('y', 1), FST::RELATION('z', 1), FST::RELATION('1', 1), FST::RELATION('2', 1), FST::RELATION('3', 1), FST::RELATION('4', 1),\
+	FST::RELATION('5', 1), FST::RELATION('6', 1), FST::RELATION('7', 1), FST::RELATION('8', 1), FST::RELATION('9', 1), FST::RELATION('0', 1),\
+	\
+	FST::RELATION('à', 1), FST::RELATION('á', 1), FST::RELATION('â', 1), FST::RELATION('ã', 1), FST::RELATION('ä', 1), FST::RELATION('å', 1),\
+	FST::RELATION('¸', 1), FST::RELATION('æ', 1), FST::RELATION('ç', 1), FST::RELATION('è', 1), FST::RELATION('é', 1), FST::RELATION('ê', 1),\
+	FST::RELATION('ë', 1), FST::RELATION('ì', 1), FST::RELATION('í', 1), FST::RELATION('î', 1), FST::RELATION('ï', 1), FST::RELATION('ð', 1),\
+	FST::RELATION('ñ', 1), FST::RELATION('ò', 1), FST::RELATION('ó', 1), FST::RELATION('ô', 1), FST::RELATION('õ', 1), FST::RELATION('ö', 1),\
+	FST::RELATION('÷', 1), FST::RELATION('ø', 1), FST::RELATION('ù', 1), FST::RELATION('ú', 1), FST::RELATION('û', 1), FST::RELATION('ü', 1),\
+	FST::RELATION('ý', 1), FST::RELATION('þ', 1), FST::RELATION('ÿ', 1), FST::RELATION(' ', 1), FST::RELATION('.', 1), FST::RELATION(',', 1),\
+	FST::RELATION('?', 1), FST::RELATION('!', 1), FST::RELATION(';', 1), FST::RELATION(':', 1), FST::RELATION('-', 1), FST::RELATION(')', 1),\
+	FST::RELATION('(', 1), \
+	\
+	FST::RELATION('a', 2), FST::RELATION('b', 2), FST::RELATION('c', 2), FST::RELATION('d', 2), FST::RELATION('e', 2), FST::RELATION('f', 2),\
+	FST::RELATION('g', 2), FST::RELATION('h', 2), FST::RELATION('i', 2), FST::RELATION('j', 2), FST::RELATION('k', 2), FST::RELATION('l', 2),\
+	FST::RELATION('m', 2), FST::RELATION('n', 2), FST::RELATION('o', 2), FST::RELATION('p', 2), FST::RELATION('q', 2), FST::RELATION('r', 2),\
+	FST::RELATION('s', 2), FST::RELATION('t', 2), FST::RELATION('u', 2), FST::RELATION('v', 2), FST::RELATION('w', 2), FST::RELATION('x', 2),\
+	FST::RELATION('y', 2), FST::RELATION('z', 2), FST::RELATION('1', 2), FST::RELATION('2', 2), FST::RELATION('3', 2), FST::RELATION('4', 2),\
+	FST::RELATION('5', 2), FST::RELATION('6', 2), FST::RELATION('7', 2), FST::RELATION('8', 2), FST::RELATION('9', 2), FST::RELATION('0', 2),\
+	\
+	FST::RELATION('à', 2), FST::RELATION('á', 2), FST::RELATION('â', 2), FST::RELATION('ã', 2), FST::RELATION('ä', 2), FST::RELATION('å', 2),\
+	FST::RELATION('¸', 2), FST::RELATION('æ', 2), FST::RELATION('ç', 2), FST::RELATION('è', 2), FST::RELATION('é', 2), FST::RELATION('ê', 2),\
+	FST::RELATION('ë', 2), FST::RELATION('ì', 2), FST::RELATION('í', 2), FST::RELATION('î', 2), FST::RELATION('ï', 2), FST::RELATION('ð', 2),\
+	FST::RELATION('ñ', 2), FST::RELATION('ò', 2), FST::RELATION('ó', 2), FST::RELATION('ô', 2), FST::RELATION('õ', 2), FST::RELATION('ö', 2),\
+	FST::RELATION('÷', 2), FST::RELATION('ø', 2), FST::RELATION('ù', 2), FST::RELATION('ú', 2), FST::RELATION('û', 2), FST::RELATION('ü', 2),\
+	FST::RELATION('ý', 2), FST::RELATION('þ', 2), FST::RELATION('ÿ', 2), FST::RELATION(' ', 2), FST::RELATION('.', 2), FST::RELATION(',', 2),\
+	FST::RELATION('?', 2), FST::RELATION('!', 2), FST::RELATION(';', 2), FST::RELATION(':', 2), FST::RELATION('-', 2), FST::RELATION(')', 2),\
+	FST::RELATION('(', 2)),\
+	\
+	FST::NODE(1, FST::RELATION('\'', 3)),\
 	FST::NODE()
 
-#define FST_IDENTIFIER      1,	\
+#define FST_IDENTIFIER 1,	\
 			FST::NODE(60,	FST::RELATION('a', 0),	\
 							FST::RELATION('b', 0),	\
 							FST::RELATION('c', 0),	\
