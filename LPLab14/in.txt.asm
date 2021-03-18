@@ -8,7 +8,7 @@ ExitProcess PROTO :DWORD
 std_out_str PROTO: DWORD
 std_out_int PROTO: SDWORD
 
-.stack 4096
+.stack 4096 
 
 .const
 	literal_1 SDWORD 1
